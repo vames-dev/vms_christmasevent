@@ -51,7 +51,7 @@ end
 RegisterNetEvent('vms_christmasevent:sv:saveSnowman', function(snowmancoords, snowmanId)
     local source = source
     local xPlayer = Config.Core == "ESX" and ESX.GetPlayerFromId(source) or QBCore.Functions.GetPlayer(source)
-    local myIdentifier = Config.Core == "ESX" and xPlayer.identifier or QBCore.Functions.GetIdentifier(source)
+    local myIdentifier = Config.Core == "ESX" and xPlayer.identifier or QBCore.Functions.GetIdentifier(source, 'license')
     local currentSnowmanId = nil
     MySQL.Async.fetchAll('SELECT id FROM `vms_snowmans` WHERE id = (SELECT MAX(id) FROM vms_snowmans)', {}, function(result)
         if result[1] then
@@ -127,7 +127,7 @@ end)
 RegisterNetEvent('vms_christmasevent:sv:collectPresent', function(id)
     if collectedPresents[id] then return end
     local xPlayer = Config.Core == "ESX" and ESX.GetPlayerFromId(source) or QBCore.Functions.GetPlayer(source)
-    local myIdentifier = Config.Core == "ESX" and xPlayer.identifier or QBCore.Functions.GetIdentifier(source)
+    local myIdentifier = Config.Core == "ESX" and xPlayer.identifier or QBCore.Functions.GetIdentifier(source, 'license')
 	collectedPresents[id] = true
 	TriggerClientEvent("vms_christmasevent:cl:deletePresent", -1, id)
 	TriggerClientEvent("vms_christmasevent:cl:updateCollected", -1, collectedPresents)
